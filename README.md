@@ -41,9 +41,18 @@ composer require mvccore/ext-tool-image
 
 ## Usage
 ```php
-\MvcCore\Ext\Tool\Image::GetInstance("./image/path.jpg")
-	->Resize(100, 100)
-	->Save();
+use \MvcCore\Ext\Tool,
+	\MvcCore\Ext\Tool\Image;
+	
+$image = Tool\Image::GetInstance()
+	->Load(__DIR__ . "/source.jpg")
+	->ScaleByHeight(150)
+	->UnsharpMask(300, 0.7, 50)
+	->Save(
+		__DIR__ . "/thumb.jpg",
+		Tool\Image\Format::JPG,
+		95
+	);
 ```
 
 # IMagick Windows binaries:
