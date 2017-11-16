@@ -28,8 +28,8 @@ Image	Image::Load($imgFullPath);
 Image	Image::UnsharpMask($amount, $radius, $threshold);
 Image	Image::ApplyMask($maskImgFullPath)
 Image	Image::Save($imgFullPath, $format, $quality)
-int		Image::GetHeight()
-int		Image::GetWidth()
+int	Image::GetHeight()
+int	Image::GetWidth()
 array	Image::HexColor2RgbArrayColor($hexColor)
 bool	Image::IsVectorGraphic()
 ```
@@ -42,17 +42,17 @@ composer require mvccore/ext-tool-image
 ## Usage
 ```php
 use \MvcCore\Ext\Tool,
-	\MvcCore\Ext\Tool\Image;
+    \MvcCore\Ext\Tool\Image;
 	
 $image = Tool\Image::GetInstance()
-	->Load(__DIR__ . "/source.jpg")
-	->ScaleByHeight(150)
-	->UnsharpMask(300, 0.7, 50)
-	->Save(
-		__DIR__ . "/thumb.jpg",
-		Tool\Image\Format::JPG,
-		95
-	);
+    ->Load(__DIR__ . "/source.jpg")
+    ->ScaleByHeight(150)
+    ->UnsharpMask(300, 0.7, 50)
+    ->Save(
+        __DIR__ . "/thumb.jpg",
+        Tool\Image\Format::JPG,
+        95
+    );
 ```
 
 # IMagick Windows binaries:
