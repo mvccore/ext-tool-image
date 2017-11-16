@@ -55,6 +55,6 @@ $image = Tool\Image::GetInstance()
     );
 ```
 
-# IMagick Windows binaries:
+# Imagick Windows binaries for dummies:
 - http://windows.php.net/downloads/pecl/deps/
 - http://windows.php.net/downloads/pecl/releases/imagick/3.4.3/
