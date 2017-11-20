@@ -32,21 +32,21 @@ class UnsharpMask {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////
-////          Unsharp Mask for PHP - version 2.1.1
+////		  Unsharp Mask for PHP - version 2.1.1
 ////
-////    Unsharp mask algorithm by Torstein Hønsi 2003-07.
-////          http://vikjavev.no/computing/ump.php
-////               thoensi_at_netcom_dot_no.
-////               Please leave this notice.
+////	Unsharp mask algorithm by Torstein Hønsi 2003-07.
+////		  http://vikjavev.no/computing/ump.php
+////			   thoensi_at_netcom_dot_no.
+////			   Please leave this notice.
 ////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 *
-	 * @param  resource $img       gd resource
-	 * @param  int      $amount    typically 50 - 200, min 0, max 500
-	 * @param  float    $radius    typically 0.5 - 1, min 0, max 50
-	 * @param  int      $threshold typically 0 - 5, min 0, max 255
+	 * @param  resource $img	   gd resource
+	 * @param  int	  $amount	typically 50 - 200, min 0, max 500
+	 * @param  float	$radius	typically 0.5 - 1, min 0, max 50
+	 * @param  int	  $threshold typically 0 - 5, min 0, max 255
 	 * @return mixed
 	 */
 	public static function Process (& $img, $amount, $radius, $threshold) {
@@ -56,13 +56,13 @@ class UnsharpMask {
 
 		// Attempt to calibrate the parameters to Photoshop:
 
-		if ($amount > 500)    $amount = 500;
+		if ($amount > 500)	$amount = 500;
 		$amount = $amount * 0.016;
-		if ($radius > 50)    $radius = 50;
+		if ($radius > 50)	$radius = 50;
 		$radius = $radius * 2;
-		if ($threshold > 255)    $threshold = 255;
+		if ($threshold > 255)	$threshold = 255;
 
-		$radius = abs(round($radius));     // Only integers make sense.
+		$radius = abs(round($radius));	 // Only integers make sense.
 		if ($radius == 0) return $img;
 
 		$w = imagesx($img);
@@ -72,9 +72,9 @@ class UnsharpMask {
 
 		// Gaussian blur matrix:
 		//
-		//    1    2    1
-		//    2    4    2
-		//    1    2    1
+		//	1	2	1
+		//	2	4	2
+		//	1	2	1
 		//
 		//////////////////////////////////////////////////
 
@@ -91,7 +91,7 @@ class UnsharpMask {
 
 		// Move copies of the image around one pixel at the time and merge them with weight
 		// according to the matrix. The same matrix is simply repeated for higher radii.
-			for ($i = 0; $i < $radius; $i++)    {
+			for ($i = 0; $i < $radius; $i++)	{
 				imagecopy ($imgBlur, $img, 0, 0, 1, 0, $w - 1, $h); // left
 				imagecopymerge ($imgBlur, $img, 1, 0, 0, 0, $w, $h, 50); // right
 				imagecopymerge ($imgBlur, $img, 0, 0, 0, 0, $w, $h, 50); // center
@@ -105,8 +105,8 @@ class UnsharpMask {
 		if ($threshold>0) {
 			// Calculate the difference between the blurred pixels and the original
 			// and set the pixels
-			for ($x = 0; $x < $w-1; $x++)    { // each row
-				for ($y = 0; $y < $h; $y++)    { // each pixel
+			for ($x = 0; $x < $w-1; $x++)	{ // each row
+				for ($y = 0; $y < $h; $y++)	{ // each pixel
 
 					$rgbOrig = ImageColorAt($img, $x, $y);
 					$rOrig = (($rgbOrig >> 16) & 0xFF);

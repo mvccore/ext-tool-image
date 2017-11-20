@@ -22,7 +22,7 @@ class ApplyMask {
 		$ySize = imagesy($image);
 
 		$newPicture = imagecreatetruecolor($xSize, $ySize);
-		imagesavealpha($newPicture, true );
+		imagesavealpha($newPicture, TRUE);
 		imagefill(
 			$newPicture, 0, 0,
 			imagecolorallocatealpha($newPicture, 0, 0, 0, 127)
@@ -40,8 +40,8 @@ class ApplyMask {
 		}
 
 		// Perform pixel-based alpha map application
-		for($x = 0; $x < $xSize; $x++) {
-			for( $y = 0; $y < $ySize; $y++) {
+		for ($x = 0; $x < $xSize; $x++) {
+			for($y = 0; $y < $ySize; $y++) {
 				$rgba = imagecolorsforindex(
 					$mask, imagecolorat($mask, $x, $y)
 				);
