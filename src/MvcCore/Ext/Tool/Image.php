@@ -42,7 +42,7 @@ abstract class Image
 		$imagick = extension_loaded("imagick");
 		$gd = extension_loaded("gd");
 		if ($preferedAdapter == Image\Adapter::IMAGICK) {
-				return new Image\Imagick;
+			return new Image\Imagick;
 		} else if ($preferedAdapter == Image\Adapter::GD) {
 			return new Image\Gd;
 		} else {
