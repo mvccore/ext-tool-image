@@ -11,12 +11,13 @@
  * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
  */
 
-namespace MvcCore\Ext\Tool\Image;
+namespace MvcCore\Ext\Tools\Images;
 
-interface Format
+interface IComposite
 {
-	const PNG = "png";
-	const JPG = "jpg";
-	const GIF = "gif";
-	const BMP = "bmp";
+	/**
+	 * The default composite operator
+	 * @var int
+	 */
+	const NORMAL = 0;
 }

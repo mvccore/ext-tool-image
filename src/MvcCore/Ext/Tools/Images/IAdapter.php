@@ -11,12 +11,11 @@
  * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
  */
 
-namespace MvcCore\Ext\Tool\Image;
+namespace MvcCore\Ext\Tools\Images;
 
-interface Adapter
+interface IAdapter
 {
 	const NONE = 0;
-
 	const GD = 1;
 	const IMAGICK = 2;
 }

@@ -11,17 +11,17 @@
  * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
  */
 
-namespace MvcCore\Ext\Tool\Image;
+namespace MvcCore\Ext\Tools\Images;
 
-interface Orientation
+interface IOrientation
 {
-	const CENTER = 1;
-	const TOP_LEFT = 2;
+	const TOP_LEFT = 1;
+	const TOP_CENTER = 2;
 	const TOP_RIGHT = 3;
-	const BOTTOM_LEFT = 4;
-	const BOTTOM_RIGHT = 5;
-	const CENTER_LEFT = 6;
-	const CENTER_RIGHT = 7;
-	const TOP_CENTER = 8;
-	const BOTTOM_CENTER = 9;
+	const MIDDLE_LEFT = 4;
+	const MIDDLE_CENTER = 5;
+	const MIDDLE_RIGHT = 6;
+	const BOTTOM_LEFT = 7;
+	const BOTTOM_CENTER = 8;
+	const BOTTOM_RIGHT = 9;
 }

@@ -26,7 +26,7 @@ and the roundoff errors in the Gaussian blur process, are welcome.
 
 */
 
-namespace MvcCore\Ext\Tool\Image\Gd;
+namespace MvcCore\Ext\Tools\Images\Gds;
 
 class UnsharpMask {
 

@@ -11,11 +11,9 @@
  * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
  */
 
-namespace MvcCore\Ext\Tool\Image\Imagick;
+namespace MvcCore\Ext\Tools\Images\Imagicks;
 
-use \MvcCore\Ext\Tool\Image;
-
-interface Composite
+interface IComposite
 {
 	/**
 	 * The default composite operator
