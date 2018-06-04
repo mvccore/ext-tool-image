@@ -39,7 +39,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	/**
 	 * @var array
 	 */
-	protected $tmpFiles = array();
+	protected $tmpFiles = [];
 
 	/**
 	 * Full directory path for computation temporary images.
@@ -117,7 +117,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 		$r = hexdec(substr($hexColor, 1, 2));
 		$g = hexdec(substr($hexColor, 3, 2));
 		$b = hexdec(substr($hexColor, 5, 2));
-		return array($r, $g, $b, 'type' => 'RGB');
+		return [$r, $g, $b, 'type' => 'RGB'];
 	}
 
 	/**

@@ -79,11 +79,11 @@ class UnsharpMask {
 		//////////////////////////////////////////////////
 
 		if (function_exists('imageconvolution')) { // PHP >= 5.1
-				$matrix = array(
-				array( 1, 2, 1 ),
-				array( 2, 4, 2 ),
-				array( 1, 2, 1 )
-			);
+				$matrix = [
+				[ 1, 2, 1 ],
+				[ 2, 4, 2 ],
+				[ 1, 2, 1 ]
+			];
 			imagecopy ($imgBlur, $img, 0, 0, 0, 0, $w, $h);
 			imageconvolution($imgBlur, $matrix, 16, 0);
 

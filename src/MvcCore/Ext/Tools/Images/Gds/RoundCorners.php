@@ -46,7 +46,7 @@ class RoundCorners {
 		// mask - bottom right corner
 		imagefilledellipse($maskImg, $w - $xHalf - $fix, $h - $yHalf - $fix, $x, $y, $maskWhite);
 		// mask - center fills
-		$points = array(
+		$points = [
 			$xHalf, 0,
 			$w - $xHalf - $fix, 0,
 			$w, $yHalf,
@@ -55,7 +55,7 @@ class RoundCorners {
 			$xHalf, $h,
 			0, $h - $yHalf - $fix,
 			0, $yHalf
-		);
+		];
 		imagefilledpolygon($maskImg, $points, 8, $maskWhite);
 
 		// create new result image

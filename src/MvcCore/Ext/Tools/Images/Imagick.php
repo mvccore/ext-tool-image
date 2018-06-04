@@ -306,12 +306,12 @@ class Imagick extends \MvcCore\Ext\Tools\Image
 		$result = FALSE;
 		try {
 			$type = $this->resource->getimageformat();
-			$vectorTypes = array(
+			$vectorTypes = [
 				"EPT","EPDF","EPI","EPS","EPS2",
 				"EPS3","EPSF","EPSI","EPT","PDF",
 				"PFA","PFB","PFM","PS","PS2",
 				"PS3","PSB","SVG","SVGZ"
-			);
+			];
 			if (in_array($type, $vectorTypes)) {
 				$result = TRUE;
 			}
