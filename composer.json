@@ -1,7 +1,7 @@
 {
 	"name": "mvccore/ext-tool-image",
 	"type": "library",
-	"description": "MvcCore Extension - Tool - Image - object oriented image processing tool supporting many popular web images operations.",
+	"description": "MvcCore - Extension - Tool - Image - object oriented image processing tool supporting many popular web images operations.",
 	"keywords": [
 		"mvc", 
 		"mvccore", 
