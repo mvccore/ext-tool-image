@@ -1,6 +1,6 @@
 <?php
 
-	include_once('../loader.php');
+	include_once('../loader.phpt');
 
 	use \MvcCore\Ext\Tools;
 
