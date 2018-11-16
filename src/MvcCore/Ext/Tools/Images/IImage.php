@@ -17,25 +17,25 @@ interface IImage
 {
 	/**
 	 * MvcCore Extension - Tool - Image - version:
-	 * Comparation by PHP function version_compare();
+	 * Comparison by PHP function version_compare();
 	 * @see http://php.net/manual/en/function.version-compare.php
 	 */
 	const VERSION = '5.0.0-alpha';
 
 	/**
 	 * Returns every time new (no singleton) `\MvcCore\Ext\Tools\Image` instance implementation.
-	 * If there is `Imagick` extension loaded and no `$preferedAdapter` presented,
+	 * If there is `Imagick` extension loaded and no `$preferredAdapter` presented,
 	 * `Imagick` instance is always created more preferably than `GD` instance.
 	 * If there is no `Imagick` and no `GD` extension loaded, new `\RuntimeException` exception is thrown.
-	 * @param  int|\MvcCore\Ext\Tools\Images\IAdapter $preferedAdapter optional
+	 * @param  int|\MvcCore\Ext\Tools\Images\IAdapter $preferredAdapter optional
 	 * @throws \RuntimeException
 	 * @return \MvcCore\Ext\Tools\Images\IImage
 	 */
-	public static function & CreateInstance ($preferedAdapter = \MvcCore\Ext\Tools\Images\IAdapter::NONE);
+	public static function & CreateInstance ($preferredAdapter = \MvcCore\Ext\Tools\Images\IAdapter::NONE);
 
 	/**
 	 * Set custom full directory path for computation temporary images.
-	 * If no temporary path configured, there is automaticly chosen temporary
+	 * If no temporary path configured, there is automatically chosen temporary
 	 * path by `ini_get('TMP')` or by `ini_get('TEMP')`;
 	 * @param string $fullPath
 	 */

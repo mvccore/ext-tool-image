@@ -49,19 +49,19 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 
 	/**
 	 * Returns every time new (no singleton) `\MvcCore\Ext\Tools\Image` instance implementation.
-	 * If there is `Imagick` extension loaded and no `$preferedAdapter` presented,
+	 * If there is `Imagick` extension loaded and no `$preferredAdapter` presented,
 	 * `Imagick` instance is always created more preferably than `GD` instance.
 	 * If there is no `Imagick` and no `GD` extension loaded, new `\RuntimeException` exception is thrown.
-	 * @param  int|\MvcCore\Ext\Tools\Images\IAdapter $preferedAdapter optional
+	 * @param  int|\MvcCore\Ext\Tools\Images\IAdapter $preferredAdapter optional
 	 * @throws \RuntimeException
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage|\MvcCore\Ext\Tools\Images\Imagick|\MvcCore\Ext\Tools\Images\Gd
 	 */
-	public static function & CreateInstance ($preferedAdapter = \MvcCore\Ext\Tools\Images\IAdapter::NONE) {
+	public static function & CreateInstance ($preferredAdapter = \MvcCore\Ext\Tools\Images\IAdapter::NONE) {
 		$imagick = extension_loaded("imagick");
 		$gd = extension_loaded("gd");
-		if ($preferedAdapter == \MvcCore\Ext\Tools\Images\IAdapter::IMAGICK) {
+		if ($preferredAdapter == \MvcCore\Ext\Tools\Images\IAdapter::IMAGICK) {
 			$result = new \MvcCore\Ext\Tools\Images\Imagick;
-		} else if ($preferedAdapter == \MvcCore\Ext\Tools\Images\IAdapter::GD) {
+		} else if ($preferredAdapter == \MvcCore\Ext\Tools\Images\IAdapter::GD) {
 			$result = new \MvcCore\Ext\Tools\Images\Gd;
 		} else {
 			if ($imagick) {
@@ -89,7 +89,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 
 	/**
 	 * Set custom full directory path for computation temporary images.
-	 * If no temporary path configured, there is automaticly chosen temporary
+	 * If no temporary path configured, there is automatically chosen temporary
 	 * path by `ini_get('TMP')` or by `ini_get('TEMP')`;
 	 * @param string $fullPath
 	 */
