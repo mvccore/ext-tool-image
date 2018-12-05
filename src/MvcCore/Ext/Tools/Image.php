@@ -96,14 +96,18 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	public static function SetTmpDirPath ($fullPath) {
 		self::$tmpDir = rtrim(str_replace('\\', '/', $fullPath), '/');
 		if (!is_dir(static::$tmpDir)) {
+			$selfClass = version_compare(PHP_VERSION, '5.5', '>') ? self::class : __CLASS__;
 			if (!mkdir(static::$tmpDir))
 				throw new \RuntimeException(
-					'['.__CLASS__."] It was not possible to create temporary directory for computed images: `".static::$tmpDir."`."
+					'['.$selfClass."] It was not possible to create temporary"
+					." directory for computed images: `".static::$tmpDir."`."
 				);
 			if (!is_writable(static::$tmpDir))
 				if (!chmod(static::$tmpDir, 0777))
 					throw new \RuntimeException(
-						'['.__CLASS__."] It was not possible to set temporary directory for computed images: `".static::$tmpDir."` to writeable mode 0777."
+						'['.$selfClass."] It was not possible to set temporary"
+						." directory for computed images: `".static::$tmpDir."`"
+						." to writeable mode 0777."
 					);
 		}
 	}

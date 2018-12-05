@@ -332,8 +332,9 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @return bool
 	 */
 	public function IsVectorGraphic () {
+		$selfClass = version_compare(PHP_VERSION, '5.5', '>') ? self::class : __CLASS__;
 		trigger_error(
-			"GD graphic library doesn't support any vector images processing. [\\" . __CLASS__ . "::" . __METHOD__ . "()]",
+			"GD graphic library doesn't support any vector images processing. [\\" . $selfClass . "::" . __METHOD__ . "()]",
 			E_USER_NOTICE
 		);
 		return FALSE;
@@ -354,8 +355,9 @@ class Gd extends \MvcCore\Ext\Tools\Image
 		$overlayImgFullPath, $x = 0, $y = 0, $alpha = NULL,
 		$composite = \MvcCore\Ext\Tools\Images\IComposite::NORMAL
 	) {
+		$selfClass = version_compare(PHP_VERSION, '5.5', '>') ? self::class : __CLASS__;
 		trigger_error(
-			"Adding an overlay image not implemented. [\\" . __CLASS__ . "::" . __METHOD__ . "()]",
+			"Adding an overlay image not implemented. [\\" . $selfClass . "::" . __METHOD__ . "()]",
 			E_USER_NOTICE
 		);
 		return $this;
