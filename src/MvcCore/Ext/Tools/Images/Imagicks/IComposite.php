@@ -172,7 +172,7 @@ interface IComposite
 	const DSTOVER = 25;
 
 	/**
-	 * Subtracts the darker of the two constituent colors from the lighter
+	 * Subtracts the darker of the two constituent colours from the lighter
 	 * @var int
 	 */
 	const DIFFERENCE = 26;
@@ -196,7 +196,7 @@ interface IComposite
 	const EXCLUSION = 29;
 
 	/**
-	 * Multiplies or screens the colors, dependent on the source color value
+	 * Multiplies or screens the colours, dependent on the source color value
 	 * @var int
 	 */
 	const HARDLIGHT = 30;
@@ -286,7 +286,7 @@ interface IComposite
 	const SCREEN = 45;
 
 	/**
-	 * Darkens or lightens the colors, dependent on the source
+	 * Darkens or lightens the colours, dependent on the source
 	 * @var int
 	 */
 	const SOFTLIGHT = 46;
@@ -322,7 +322,7 @@ interface IComposite
 	const SRCOVER = 51;
 
 	/**
-	 * Subtract the colors in the source image from the destination image
+	 * Subtract the colours in the source image from the destination image
 	 * @var int
 	 */
 	const SUBTRACT = 52;

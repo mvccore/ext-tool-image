@@ -15,6 +15,11 @@ namespace MvcCore\Ext\Tools\Images\Gds;
 
 class ApplyMask {
 
+	/**
+	 * @param resource $image 
+	 * @param resource $mask 
+	 * @return void
+	 */
 	public static function Process (& $image, & $mask) {
 
 		// Get sizes and set up new picture

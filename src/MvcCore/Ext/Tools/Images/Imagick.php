@@ -268,7 +268,7 @@ class Imagick extends \MvcCore\Ext\Tools\Image
 	}
 
 	/**
-	 * Set background image. If background iamge has different sizes,
+	 * Set background image. If background image has different sizes,
 	 * it's resized without maintaining the aspect ratio to the same
 	 * sizes as current image instance.
 	 * @param  string $bgImgFullPath

@@ -15,7 +15,7 @@
 	foreach ($di as $sourceImg) {
 		if ($sourceImg->isDir()) continue;
 
-		$image = Tools\Image::CreateInstance(/* adapter will be chosen automaticly */)
+		$image = Tools\Image::CreateInstance(/* adapter will be chosen automatically */)
 		//$image = Tools\Image::CreateInstance(Tools\Images\IAdapter::IMAGICK)
 		//$image = Tools\Image::CreateInstance(Tools\Images\IAdapter::GD)
 			->Load($imagesSources . "/" . $sourceImg->getFilename())

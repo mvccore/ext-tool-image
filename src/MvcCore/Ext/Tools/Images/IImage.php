@@ -43,7 +43,7 @@ interface IImage
 
 	/**
 	 * @param string $hexColor Color in hexadecimal format with or without leading hash.
-	 * @return array array($r, $g, $b, 'type' => 'RGB');
+	 * @return array [$r, $g, $b, 'type' => 'RGB'];
 	 */
 	public static function HexColor2RgbArrayColor ($hexColor);
 
@@ -75,7 +75,7 @@ interface IImage
 
 	/**
 	 * Scale source image by total final count of pixels in the resized image.
-	 * Usefull for list of logotypes, where is necessary to scale all logotypes into
+	 * Useful for list of logotypes, where is necessary to scale all logotypes into
 	 * the same visual space - with approximately the same importance by filled space,
 	 * so not resized by height or not by width, logotypes have always different proportions.
 	 * @param int $resizedImgTotalPixelsCount Pixels count, computed by target width × height,
@@ -117,16 +117,16 @@ interface IImage
 
 	/**
 	 * Crop image by percentage value from left, top, right and bottom.
-	 * @param int $xPercentage Percantage value to crop from left.
-	 * @param int $yPercentage Percantage value to crop from top.
-	 * @param int $widthPercentage Percantage value to crop from right.
-	 * @param int $heightPercentage Percantage value to crop from bottom.
+	 * @param int $xPercentage Percentage value to crop from left.
+	 * @param int $yPercentage Percentage value to crop from top.
+	 * @param int $widthPercentage Percentage value to crop from right.
+	 * @param int $heightPercentage Percentage value to crop from bottom.
 	 * @return \MvcCore\Ext\Tools\Images\IImage
 	 */
 	public function & CropPercent ($xPercentage, $yPercentage, $widthPercentage, $heightPercentage);
 
 	/**
-	 * Load image into resource by given file fullpath.
+	 * Load image into resource by given file full path.
 	 * @abstract
 	 * @param string $imgFullPath
 	 * @throws \RuntimeException
@@ -245,7 +245,7 @@ interface IImage
 	public function & Rotate ($angle, $hexBgColor = 'transparent');
 
 	/**
-	 * Set background image. If background iamge has different sizes,
+	 * Set background image. If background image has different sizes,
 	 * it's resized without maintaining the aspect ratio to the same
 	 * sizes as current image instance.
 	 * @abstract
@@ -257,7 +257,7 @@ interface IImage
 
 	/**
 	 * Return `TRUE` if image is vector graphic. `FALSE` otherwise.
-	 * Return always `FALSE` for `GD` images, `GD` library cannnot work with vector graphics.
+	 * Return always `FALSE` for `GD` images, `GD` library cannot work with vector graphics.
 	 * @abstract
 	 * @return bool
 	 */

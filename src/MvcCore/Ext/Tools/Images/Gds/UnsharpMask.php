@@ -4,7 +4,7 @@
 
 New:
 - In version 2.1 (February 26 2007) Tom Bishop has done some important speed enhancements.
-- From version 2 (July 17 2006) the script uses the imageconvolution function in PHP
+- From version 2 (July 17 2006) the script uses the `imageconvolution()` function in PHP
 version >= 5.1, which improves the performance considerably.
 
 
@@ -18,11 +18,11 @@ accentuated.
 The Amount parameter simply says how much of the effect you want. 100 is 'normal'.
 Radius is the radius of the blurring circle of the mask. 'Threshold' is the least
 difference in colour values that is allowed between the original and the mask. In practice
-this means that low-contrast areas of the picture are left unrendered whereas edges
+this means that low-contrast areas of the picture are left un-rendered whereas edges
 are treated normally. This is good for pictures of e.g. skin or blue skies.
 
-Any suggenstions for improvement of the algorithm, expecially regarding the speed
-and the roundoff errors in the Gaussian blur process, are welcome.
+Any suggestions for improvement of the algorithm, especially regarding the speed
+and the round off errors in the Gaussian blur process, are welcome.
 
 */
 
@@ -42,12 +42,11 @@ class UnsharpMask {
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 *
-	 * @param  resource $img	   gd resource
-	 * @param  int	  $amount	typically 50 - 200, min 0, max 500
-	 * @param  float	$radius	typically 0.5 - 1, min 0, max 50
-	 * @param  int	  $threshold typically 0 - 5, min 0, max 255
-	 * @return mixed
+	 * @param  resource $img		Gd resource reference
+	 * @param  int		$amount		typically 50 - 200, min 0, max 500
+	 * @param  float	$radius		typically 0.5 - 1, min 0, max 50
+	 * @param  int		$threshold	typically 0 - 5, min 0, max 255
+	 * @return void
 	 */
 	public static function Process (& $img, $amount, $radius, $threshold) {
 
@@ -167,7 +166,5 @@ class UnsharpMask {
 		}
 		imagedestroy($imgCanvas);
 		imagedestroy($imgBlur);
-
-		return $img;
 	}
 }

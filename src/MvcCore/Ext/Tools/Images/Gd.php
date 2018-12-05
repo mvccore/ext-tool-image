@@ -21,7 +21,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	protected $resource;
 
 	/**
-	 * Load image into resource by given file fullpath.
+	 * Load image into resource by given file full path.
 	 * @param string $imgFullPath
 	 * @throws \RuntimeException
 	 * @return bool|\MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
@@ -48,11 +48,11 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 */
 	public function & Save ($fullPath, $format = \MvcCore\Ext\Tools\Images\IFormat::PNG, $quality = NULL) {
 		$format = strtolower($format);
-		if (!$format) $format = "png";
-		if ($format == \MvcCore\Ext\Tools\Images\IFormat::JPG) $format = "jpeg";
+		if (!$format) $format = 'png';
+		if ($format == \MvcCore\Ext\Tools\Images\IFormat::JPG) $format = 'jpeg';
 		$functionName = 'image' . $format;
 		if (!function_exists($functionName)) {
-			$functionName = "imagepng";
+			$functionName = 'imagepng';
 		}
 		// always create a PNG24
 		if ($format == \MvcCore\Ext\Tools\Images\IFormat::PNG) {
@@ -146,7 +146,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 */
 	public function & SetBackgroundColor ($hexColor) {
 		list($r, $g, $b) = static::HexColor2RgbArrayColor($hexColor);
-		// just imagefill() on the existing image doesn't work,
+		// just `imagefill()` on the existing image doesn't work,
 		// so we have to create a new image, fill it and then merge
 		// the source image with the background-image together
 		$newImg = imagecreatetruecolor(
@@ -283,7 +283,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	}
 
 	/**
-	 * Set background image. If background iamge has different sizes,
+	 * Set background image. If background image has different sizes,
 	 * it's resized without maintaining the aspect ratio to the same
 	 * sizes as current image instance.
 	 * @param string $bgImgFullPath

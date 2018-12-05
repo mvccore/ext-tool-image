@@ -19,7 +19,7 @@ class RoundCorners {
 	 * @param  resource $img
 	 * @param  float	$x
 	 * @param  float	$y
-	 * @return resource
+	 * @return void
 	 */
 	public static function Process (& $img, $x, $y) {
 		$x *= 2;
