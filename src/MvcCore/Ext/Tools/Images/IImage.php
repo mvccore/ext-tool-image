@@ -16,13 +16,6 @@ namespace MvcCore\Ext\Tools\Images;
 interface IImage
 {
 	/**
-	 * MvcCore Extension - Tool - Image - version:
-	 * Comparison by PHP function version_compare();
-	 * @see http://php.net/manual/en/function.version-compare.php
-	 */
-	const VERSION = '5.0.0-alpha';
-
-	/**
 	 * Returns every time new (no singleton) `\MvcCore\Ext\Tools\Image` instance implementation.
 	 * If there is `Imagick` extension loaded and no `$preferredAdapter` presented,
 	 * `Imagick` instance is always created more preferably than `GD` instance.

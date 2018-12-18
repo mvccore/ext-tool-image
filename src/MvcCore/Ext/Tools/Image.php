@@ -22,6 +22,13 @@ include_once(__DIR__ . '/Images/IComposite.php');
 abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 {
 	/**
+	 * MvcCore - version:
+	 * Comparison by PHP function `version_compare();`.
+	 * @see http://php.net/manual/en/function.version-compare.php
+	 */
+	const VERSION = '5.0.0-alpha';
+
+	/**
 	 * @var int
 	 */
 	protected $width;
