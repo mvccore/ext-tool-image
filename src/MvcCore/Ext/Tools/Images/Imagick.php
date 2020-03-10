@@ -31,7 +31,7 @@ class Imagick extends \MvcCore\Ext\Tools\Image
 	 * @throws \RuntimeException
 	 * @return bool|\MvcCore\Ext\Tools\Image
 	 */
-	public function & Load ($imgFullPath) {
+	public function Load ($imgFullPath) {
 		$result = FALSE;
 		if ($this->resource) {
 			unset($this->resource);
@@ -62,7 +62,7 @@ class Imagick extends \MvcCore\Ext\Tools\Image
 	 * @param int $quality `NULL` by default - no quality settings will be used.
 	 * @return \MvcCore\Ext\Tools\Image
 	 */
-	public function & Save ($fullPath, $format = \MvcCore\Ext\Tools\Images\IFormat::PNG, $quality = NULL) {
+	public function Save ($fullPath, $format = \MvcCore\Ext\Tools\Images\IFormat::PNG, $quality = NULL) {
 		if (!$format) $format = \MvcCore\Ext\Tools\Images\IFormat::PNG;
 		$this->resource->stripimage();
 		$this->resource->setImageFormat($format);
@@ -81,7 +81,7 @@ class Imagick extends \MvcCore\Ext\Tools\Image
 	 * @param int $height Pixel height.
 	 * @return \MvcCore\Ext\Tools\Image
 	 */
-	public function & Resize ($width, $height) {
+	public function Resize ($width, $height) {
 		// this is the check for vector formats because
 		// they need to have a resolution set this does
 		// only work if "resize" is the first step
@@ -114,7 +114,7 @@ class Imagick extends \MvcCore\Ext\Tools\Image
 	 * @param int $height Pixel size to crop from bottom.
 	 * @return \MvcCore\Ext\Tools\Image
 	 */
-	public function & Crop ($x, $y, $width, $height) {
+	public function Crop ($x, $y, $width, $height) {
 		$this->resource->cropImage($width, $height, $x, $y);
 		$this->resource->setImagePage($width, $height, 0, 0);
 		$this->setWidth($width);
@@ -132,7 +132,7 @@ class Imagick extends \MvcCore\Ext\Tools\Image
 	 * @param int $height Pixel height.
 	 * @return \MvcCore\Ext\Tools\Image
 	 */
-	public function & Frame ($width, $height) {
+	public function Frame ($width, $height) {
 		$this->Contain($width, $height);
 		$x = ($width - $this->GetWidth()) / 2;
 		$y = ($height - $this->GetHeight()) / 2;
@@ -153,7 +153,7 @@ class Imagick extends \MvcCore\Ext\Tools\Image
 	 * @param string $hexColor Color in hexadecimal format with or without leading hash.
 	 * @return \MvcCore\Ext\Tools\Image
 	 */
-	public function & SetBackgroundColor ($hexColor = 'transparent') {
+	public function SetBackgroundColor ($hexColor = 'transparent') {
 		$newImage = $this->CreateEmptyImageResource(
 			$this->GetWidth(), $this->GetHeight(), $hexColor
 		);
@@ -174,7 +174,7 @@ class Imagick extends \MvcCore\Ext\Tools\Image
 	 * @param int   $threshold Typically: 0 - 5, min. 0, max. 255.
 	 * @return \MvcCore\Ext\Tools\Image
 	 */
-	public function & UnsharpMask ($amount, $radius, $threshold) {
+	public function UnsharpMask ($amount, $radius, $threshold) {
 		$sigma = ($radius < 1) ? $radius : sqrt($radius) ;
 		$amount = ($amount * 2.55) / 100;
 		$threshold = $threshold / 255;
@@ -193,7 +193,7 @@ class Imagick extends \MvcCore\Ext\Tools\Image
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Tools\Image
 	 */
-	public function & ApplyMask ($maskImgFullPath) {
+	public function ApplyMask ($maskImgFullPath) {
 		if (is_file($maskImgFullPath)) {
 			$this->resource->setImageMatte(TRUE);
 			$newImage = new \Imagick($maskImgFullPath);
@@ -218,7 +218,7 @@ class Imagick extends \MvcCore\Ext\Tools\Image
 	 * Convert whole image to grayscale.
 	 * @return \MvcCore\Ext\Tools\Image
 	 */
-	public function & Grayscale () {
+	public function Grayscale () {
 		$this->resource->setImageType(\Imagick::IMGTYPE_GRAYSCALEMATTE);
 		$this->reinitializeImage();
 		return $this;
@@ -232,7 +232,7 @@ class Imagick extends \MvcCore\Ext\Tools\Image
 	 * @param float $threshold
 	 * @return \MvcCore\Ext\Tools\Image
 	 */
-	public function & Sepia ($threshold = 80) {
+	public function Sepia ($threshold = 80) {
 		$this->resource->sepiatoneimage($threshold);
 		$this->reinitializeImage();
 		return $this;
@@ -244,7 +244,7 @@ class Imagick extends \MvcCore\Ext\Tools\Image
 	 * @param float $y Y-rounding.
 	 * @return \MvcCore\Ext\Tools\Image
 	 */
-	public function & RoundCorners ($x, $y) {
+	public function RoundCorners ($x, $y) {
 		$this->resource->roundCorners($x, $y);
 		$this->reinitializeImage();
 		return $this;
@@ -256,7 +256,7 @@ class Imagick extends \MvcCore\Ext\Tools\Image
 	 * @param string $hexBgColor Color in hexadecimal format with or without leading hash. Transparent by default.
 	 * @return \MvcCore\Ext\Tools\Image
 	 */
-	public function & Rotate ($angle, $hexBgColor = 'transparent') {
+	public function Rotate ($angle, $hexBgColor = 'transparent') {
 		$this->resource->rotateImage(
 			new \ImagickPixel($hexBgColor == 'transparent' ? 'rgba(0%, 0%, 0%, 0.0)' : $hexBgColor),
 			$angle
@@ -275,7 +275,7 @@ class Imagick extends \MvcCore\Ext\Tools\Image
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Tools\Image
 	 */
-	public function & SetBackgroundImage ($bgImgFullPath) {
+	public function SetBackgroundImage ($bgImgFullPath) {
 		if (is_file($bgImgFullPath)) {
 			$newImage = new \Imagick($bgImgFullPath);
 			$newImage->readimage($bgImgFullPath);
@@ -332,7 +332,7 @@ class Imagick extends \MvcCore\Ext\Tools\Image
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Tools\Image
 	 */
-	public function & AddOverlay (
+	public function AddOverlay (
 		$overlayImgFullPath, $x = 0, $y = 0, $alpha = NULL,
 		$composite = \MvcCore\Ext\Tools\Images\Imagicks\IComposite::NORMAL
 	) {
@@ -364,7 +364,7 @@ class Imagick extends \MvcCore\Ext\Tools\Image
 	 * @param string $hexBgColor Color in hexadecimal format with or without leading hash.
 	 * @return \Imagick
 	 */
-	public function & CreateEmptyImageResource ($width, $height, $hexBgColor = 'transparent') {
+	public function CreateEmptyImageResource ($width, $height, $hexBgColor = 'transparent') {
 		$newImage = new \Imagick();
 		$newImage->newimage(
 			$width, $height,
@@ -379,7 +379,7 @@ class Imagick extends \MvcCore\Ext\Tools\Image
 	 * Destroy current image instance resource in RAM.
 	 * @return \MvcCore\Ext\Tools\Image
 	 */
-	protected function & destroy() {
+	protected function destroy() {
 		$this->resource->destroy();
 		return $this;
 	}

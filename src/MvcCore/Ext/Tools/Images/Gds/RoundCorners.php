@@ -21,7 +21,7 @@ class RoundCorners {
 	 * @param  float	$y
 	 * @return void
 	 */
-	public static function Process (& $img, $x, $y) {
+	public static function Process ($img, $x, $y) {
 		$x *= 2;
 		$y *= 2;
 
@@ -84,7 +84,7 @@ class RoundCorners {
 	}
 
 	protected static function copyCornerWithMask (
-		& $img, & $maskImg, & $newImg,
+		$img, $maskImg, $newImg,
 		$x, $y, $w, $h
 	) {
 		for ($i = $x; $i < $w; $i += 1) {

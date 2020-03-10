@@ -20,7 +20,7 @@ class ApplyMask {
 	 * @param resource $mask 
 	 * @return void
 	 */
-	public static function Process (& $image, & $mask) {
+	public static function Process ($image, $mask) {
 
 		// Get sizes and set up new picture
 		$xSize = imagesx($image);

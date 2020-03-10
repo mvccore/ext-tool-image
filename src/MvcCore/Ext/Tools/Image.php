@@ -63,7 +63,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @throws \RuntimeException
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage|\MvcCore\Ext\Tools\Images\Imagick|\MvcCore\Ext\Tools\Images\Gd
 	 */
-	public static function & CreateInstance ($preferredAdapter = \MvcCore\Ext\Tools\Images\IAdapter::NONE) {
+	public static function CreateInstance ($preferredAdapter = \MvcCore\Ext\Tools\Images\IAdapter::NONE) {
 		$imagick = extension_loaded("imagick");
 		$gd = extension_loaded("gd");
 		if ($preferredAdapter == \MvcCore\Ext\Tools\Images\IAdapter::IMAGICK) {
@@ -103,16 +103,15 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	public static function SetTmpDirPath ($fullPath) {
 		self::$tmpDir = rtrim(str_replace('\\', '/', $fullPath), '/');
 		if (!is_dir(static::$tmpDir)) {
-			$selfClass = version_compare(PHP_VERSION, '5.5', '>') ? self::class : __CLASS__;
 			if (!mkdir(static::$tmpDir))
 				throw new \RuntimeException(
-					'['.$selfClass."] It was not possible to create temporary"
+					'['.get_class()."] It was not possible to create temporary"
 					." directory for computed images: `".static::$tmpDir."`."
 				);
 			if (!is_writable(static::$tmpDir))
 				if (!chmod(static::$tmpDir, 0777))
 					throw new \RuntimeException(
-						'['.$selfClass."] It was not possible to set temporary"
+						'['.get_class()."] It was not possible to set temporary"
 						." directory for computed images: `".static::$tmpDir."`"
 						." to writeable mode 0777."
 					);
@@ -160,7 +159,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @param int $width Pixel width.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & ResizeByWidth ($width) {
+	public function ResizeByWidth ($width) {
 		$height = round(($width / $this->GetWidth()) * $this->GetHeight(), 0);
 		$this->Resize(max(1, $width), max(1, $height));
 		return $this;
@@ -171,7 +170,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @param int $height Pixel height.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & ResizeByHeight ($height) {
+	public function ResizeByHeight ($height) {
 		$width = round(($height / $this->GetHeight()) * $this->GetWidth(), 0);
 		$this->Resize(max(1, $width), max(1, $height));
 		return $this;
@@ -187,7 +186,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 *                                        size around 100 × 100 pixels, value will be 100 × 100 = 10000.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & ResizeByPixelsCount ($resizedImgTotalPixelsCount) {
+	public function ResizeByPixelsCount ($resizedImgTotalPixelsCount) {
 		$targetSqrt = sqrt($resizedImgTotalPixelsCount);
 		$sourceSqrt = sqrt($this->GetWidth() * $this->GetHeight());
 		$sqrtRatio = $targetSqrt / $sourceSqrt;
@@ -204,7 +203,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @param int $height Pixel height.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & Contain ($width, $height) {
+	public function Contain ($width, $height) {
 		$x = $this->GetWidth() / $width;
 		$y = $this->GetHeight() / $height;
 		if ($x <= 1 && $y <= 1 && !$this->IsVectorGraphic()) {
@@ -236,7 +235,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & Cover ($width, $height, $orientation = \MvcCore\Ext\Tools\Images\IOrientation::MIDDLE_CENTER) {
+	public function Cover ($width, $height, $orientation = \MvcCore\Ext\Tools\Images\IOrientation::MIDDLE_CENTER) {
 		$ratio = $this->GetWidth() / $this->GetHeight();
 		if (($width / $height) > $ratio) {
 			$this->ResizeByWidth($width);
@@ -292,7 +291,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @param int $heightPercentage Percentage value to crop from bottom.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & CropPercent ($xPercentage, $yPercentage, $widthPercentage, $heightPercentage) {
+	public function CropPercent ($xPercentage, $yPercentage, $widthPercentage, $heightPercentage) {
 		$originalWidth = $this->GetWidth();
 		$originalHeight = $this->GetHeight();
 		$widthPixel = $originalWidth * ($widthPercentage / 100);
@@ -309,7 +308,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @throws \RuntimeException
 	 * @return bool|\MvcCore\Ext\Tools\Image
 	 */
-	public abstract function & Load ($imgFullPath);
+	public abstract function Load ($imgFullPath);
 
 	/**
 	 * Save image in desired full path by format and optional quality settings.
@@ -319,7 +318,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @param int $quality `NULL` by default - no quality settings will be used.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public abstract function & Save ($fullPath, $format = \MvcCore\Ext\Tools\Images\IFormat::PNG, $quality = NULL);
+	public abstract function Save ($fullPath, $format = \MvcCore\Ext\Tools\Images\IFormat::PNG, $quality = NULL);
 
 	/**
 	 * Resize image to desired with and height without maintaining the aspect ratio.
@@ -328,7 +327,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @param int $height Pixel height.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public abstract function & Resize ($width, $height);
+	public abstract function Resize ($width, $height);
 
 	/**
 	 * Crop image from left, top right or bottom side.
@@ -339,7 +338,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @param int $height Pixel size to crop from bottom.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public abstract function & Crop ($x, $y, $width, $height);
+	public abstract function Crop ($x, $y, $width, $height);
 
 	/**
 	 * Image will be resized into sizes not larger than `$width`
@@ -351,7 +350,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @param int $height Pixel height.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public abstract function & Frame ($width, $height);
+	public abstract function Frame ($width, $height);
 
 	/**
 	 * Set background color for prepared image.
@@ -359,7 +358,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @param string $hexColor Color in hexadecimal format with or without leading hash.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public abstract function & SetBackgroundColor ($hexColor);
+	public abstract function SetBackgroundColor ($hexColor);
 
 	/**
 	 * Apply to whole image Photoshop like Unsharp Mask filter to sharp image.
@@ -370,7 +369,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @param int   $threshold Typically: 0 - 5, min. 0, max. 255.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public abstract function & UnsharpMask ($amount, $radius, $threshold);
+	public abstract function UnsharpMask ($amount, $radius, $threshold);
 
 	/**
 	 * Apply to whole image Photoshop like Channel Mask.
@@ -382,14 +381,14 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public abstract function & ApplyMask ($maskImgFullPath);
+	public abstract function ApplyMask ($maskImgFullPath);
 
 	/**
 	 * Convert whole image to grayscale.
 	 * @abstract
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public abstract function & Grayscale ();
+	public abstract function Grayscale ();
 
 	/**
 	 * Applies a special effect to the image, similar to the effect achieved
@@ -400,7 +399,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @param float $threshold
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public abstract function & Sepia ($threshold = 80);
+	public abstract function Sepia ($threshold = 80);
 
 	/**
 	 * Round image corners with the same x-round and y-round sizes.
@@ -410,7 +409,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @param float $y Y-rounding.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public abstract function & RoundCorners ($x, $y);
+	public abstract function RoundCorners ($x, $y);
 
 	/**
 	 * Rotate image with optional background color, transparent by default.
@@ -419,7 +418,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @param string $hexBgColor Color in hexadecimal format with or without leading hash. Transparent by default.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public abstract function & Rotate ($angle, $hexBgColor = 'transparent');
+	public abstract function Rotate ($angle, $hexBgColor = 'transparent');
 
 	/**
 	 * Set background image. If background image has different sizes,
@@ -430,7 +429,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public abstract function & SetBackgroundImage ($image);
+	public abstract function SetBackgroundImage ($image);
 
 	/**
 	 * Return `TRUE` if image is vector graphic. `FALSE` otherwise.
@@ -453,7 +452,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public abstract function & AddOverlay (
+	public abstract function AddOverlay (
 		$overlayImgFullPath, $x = 0, $y = 0, $alpha = NULL,
 		$composite = \MvcCore\Ext\Tools\Images\IComposite::NORMAL
 	);
@@ -465,21 +464,21 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @param string $hexBgColor Color in hexadecimal format with or without leading hash.
 	 * @return resource
 	 */
-	public abstract function & CreateEmptyImageResource ($width, $height, $hexBgColor = 'transparent');
+	public abstract function CreateEmptyImageResource ($width, $height, $hexBgColor = 'transparent');
 
 	/**
 	 * Destroy current image instance resource in RAM.
 	 * @abstract
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	protected abstract function & destroy ();
+	protected abstract function destroy ();
 
 	/**
 	 * Set current pixel width value.
 	 * @param int $width Pixel width.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	protected function & setWidth ($width) {
+	protected function setWidth ($width) {
 		$this->width = $width;
 		return $this;
 	}
@@ -489,7 +488,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @param int $height Pixel height.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	protected function & setHeight ($height) {
+	protected function setHeight ($height) {
 		$this->height = $height;
 		return $this;
 	}
@@ -498,7 +497,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * Remove all temporary images from `$this->tmpFiles`.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	protected function & removeTmpFiles () {
+	protected function removeTmpFiles () {
 		if (!empty($this->tmpFiles)) {
 			foreach ($this->tmpFiles as $tmpFile) {
 				if (file_exists($tmpFile)) @unlink($tmpFile);
@@ -511,7 +510,7 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * Reload image data from temporary image on HDD.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	protected function & reinitializeImage() {
+	protected function reinitializeImage() {
 		$tmpFile = self::$tmpDir . "/MvcCore_Ext_Tools_Images_TMP_" . uniqid();
 		$this->tmpFiles[] = $tmpFile;
 		$this->Save($tmpFile);

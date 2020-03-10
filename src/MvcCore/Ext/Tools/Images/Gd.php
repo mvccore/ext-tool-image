@@ -26,7 +26,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @throws \RuntimeException
 	 * @return bool|\MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & Load ($imgFullPath) {
+	public function Load ($imgFullPath) {
 		$result = FALSE;
 		$loaded = $this->resource = @imagecreatefromstring(
 			file_get_contents($imgFullPath)
@@ -46,7 +46,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @param int $quality `NULL` by default - no quality settings will be used.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & Save ($fullPath, $format = \MvcCore\Ext\Tools\Images\IFormat::PNG, $quality = NULL) {
+	public function Save ($fullPath, $format = \MvcCore\Ext\Tools\Images\IFormat::PNG, $quality = NULL) {
 		$format = strtolower($format);
 		if (!$format) $format = 'png';
 		if ($format == \MvcCore\Ext\Tools\Images\IFormat::JPG) $format = 'jpeg';
@@ -76,7 +76,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @param int $height Pixel height.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & Resize ($width, $height) {
+	public function Resize ($width, $height) {
 		$newImg = $this->CreateEmptyImageResource($width, $height);
 		imagecopyresampled(
 			$newImg, $this->resource,
@@ -99,7 +99,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @param int $height Pixel size to crop from bottom.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & Crop ($x, $y, $width, $height) {
+	public function Crop ($x, $y, $width, $height) {
 		$x = min($this->GetWidth(), max(0, $x));
 		$y = min($this->GetHeight(), max(0, $y));
 		$width   = min($width,  $this->GetWidth() - $x);
@@ -122,7 +122,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @param int $height Pixel height.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & Frame ($width, $height) {
+	public function Frame ($width, $height) {
 		$this->Contain($width, $height);
 		$x = ($width - $this->GetWidth()) / 2;
 		$y = ($height - $this->GetHeight()) / 2;
@@ -144,7 +144,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @param string $hexColor Color in hexadecimal format with or without leading hash.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & SetBackgroundColor ($hexColor) {
+	public function SetBackgroundColor ($hexColor) {
 		list($r, $g, $b) = static::HexColor2RgbArrayColor($hexColor);
 		// just `imagefill()` on the existing image doesn't work,
 		// so we have to create a new image, fill it and then merge
@@ -172,7 +172,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @param int   $threshold Typically: 0 - 5, min. 0, max. 255.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & UnsharpMask ($amount, $radius, $threshold) {
+	public function UnsharpMask ($amount, $radius, $threshold) {
 		\MvcCore\Ext\Tools\Images\Gds\UnsharpMask::Process(
 			$this->resource, $amount, $radius, $threshold
 		);
@@ -189,7 +189,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & ApplyMask ($maskImgFullPath) {
+	public function ApplyMask ($maskImgFullPath) {
 		if (is_file($maskImgFullPath)) {
 			$maskResource = @imagecreatefromstring(
 				file_get_contents($maskImgFullPath)
@@ -216,7 +216,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * Convert whole image to grayscale.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & Grayscale () {
+	public function Grayscale () {
 		imagefilter($this->resource, IMG_FILTER_GRAYSCALE);
 		$this->reinitializeImage();
 		return $this;
@@ -230,7 +230,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @param float $threshold
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & Sepia ($threshold = 80) {
+	public function Sepia ($threshold = 80) {
 		$ratio = $threshold / 100.0;
 		imagefilter($this->resource, IMG_FILTER_GRAYSCALE);
 		imagefilter($this->resource, IMG_FILTER_BRIGHTNESS, -10);
@@ -247,7 +247,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @param float $y Y-rounding.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & RoundCorners ($x, $y) {
+	public function RoundCorners ($x, $y) {
 		\MvcCore\Ext\Tools\Images\Gds\RoundCorners::Process($this->resource, $x, $y);
 		return $this;
 	}
@@ -258,7 +258,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @param string $hexBgColor Color in hexadecimal format with or without leading hash. Transparent by default.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & Rotate ($angle, $hexBgColor = 'transparent') {
+	public function Rotate ($angle, $hexBgColor = 'transparent') {
 		if ($hexBgColor == 'transparent') {
 			$transColor = imagecolorallocatealpha(
 				$this->resource, 0, 0, 0, 127
@@ -290,7 +290,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & SetBackgroundImage ($bgImgFullPath) {
+	public function SetBackgroundImage ($bgImgFullPath) {
 		if (is_file($bgImgFullPath)) {
 			$bgImg = @imagecreatefromstring(
 				file_get_contents($bgImgFullPath)
@@ -332,9 +332,8 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @return bool
 	 */
 	public function IsVectorGraphic () {
-		$selfClass = version_compare(PHP_VERSION, '5.5', '>') ? self::class : __CLASS__;
 		trigger_error(
-			"GD graphic library doesn't support any vector images processing. [\\" . $selfClass . "::" . __METHOD__ . "()]",
+			"GD graphic library doesn't support any vector images processing. [\\".get_class()."::".__METHOD__."()]",
 			E_USER_NOTICE
 		);
 		return FALSE;
@@ -351,13 +350,12 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	public function & AddOverlay (
+	public function AddOverlay (
 		$overlayImgFullPath, $x = 0, $y = 0, $alpha = NULL,
 		$composite = \MvcCore\Ext\Tools\Images\IComposite::NORMAL
 	) {
-		$selfClass = version_compare(PHP_VERSION, '5.5', '>') ? self::class : __CLASS__;
 		trigger_error(
-			"Adding an overlay image not implemented. [\\" . $selfClass . "::" . __METHOD__ . "()]",
+			"Adding an overlay image not implemented. [\\".get_class()."::".__METHOD__."()]",
 			E_USER_NOTICE
 		);
 		return $this;
@@ -370,7 +368,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @param string $hexBgColor Color in hexadecimal format with or without leading hash.
 	 * @return resource
 	 */
-	public function & CreateEmptyImageResource ($width, $height, $hexBgColor = 'transparent') {
+	public function CreateEmptyImageResource ($width, $height, $hexBgColor = 'transparent') {
 		$newImg = imagecreatetruecolor($width, $height);
 		imagesavealpha($newImg, true);
 		imagealphablending($newImg, false);
@@ -388,7 +386,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * Destroy current image instance resource in RAM.
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
-	protected function & destroy() {
+	protected function destroy() {
 		imagedestroy($this->resource);
 		return $this;
 	}

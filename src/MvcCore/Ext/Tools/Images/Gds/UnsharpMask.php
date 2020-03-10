@@ -48,7 +48,7 @@ class UnsharpMask {
 	 * @param  int		$threshold	typically 0 - 5, min 0, max 255
 	 * @return void
 	 */
-	public static function Process (& $img, $amount, $radius, $threshold) {
+	public static function Process ($img, $amount, $radius, $threshold) {
 
 		// $img is an image that is already created within php using
 		// imgcreatetruecolor. No url! $img must be a truecolor image.
