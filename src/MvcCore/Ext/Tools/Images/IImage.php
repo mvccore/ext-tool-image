@@ -13,8 +13,20 @@
 
 namespace MvcCore\Ext\Tools\Images;
 
-interface IImage
-{
+interface IImage {
+
+	/**
+	 * MvcCore - version:
+	 * Comparison by PHP function `version_compare();`.
+	 * @see http://php.net/manual/en/function.version-compare.php
+	 */
+	const VERSION = '5.0.0-alpha';
+
+	/**
+	 * Base temporary image name in temporary directory.
+	 */
+	const TMP_IMAGE_BASE_NAME = 'MvcCore_Ext_Tools_Images_TMP';
+
 	/**
 	 * Returns every time new (no singleton) `\MvcCore\Ext\Tools\Image` instance implementation.
 	 * If there is `Imagick` extension loaded and no `$preferredAdapter` presented,
@@ -27,9 +39,15 @@ interface IImage
 	public static function CreateInstance ($preferredAdapter = \MvcCore\Ext\Tools\Images\IAdapter::NONE);
 
 	/**
+	 * Get full directory path for temporary images computation.
+	 * If no temporary path configured, there is used default
+	 * system temporary directory from `\MvcCore\Tool::GetSystemTmpDir();`.
+	 * @return string
+	 */
+	public static function GetTmpDirPath ();
+
+	/**
 	 * Set custom full directory path for computation temporary images.
-	 * If no temporary path configured, there is automatically chosen temporary
-	 * path by `ini_get('TMP')` or by `ini_get('TEMP')`;
 	 * @param string $fullPath
 	 */
 	public static function SetTmpDirPath ($fullPath);

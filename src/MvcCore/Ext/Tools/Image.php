@@ -19,15 +19,8 @@ include_once(__DIR__ . '/Images/IOrientation.php');
 include_once(__DIR__ . '/Images/IFormat.php');
 include_once(__DIR__ . '/Images/IComposite.php');
 
-abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
-{
-	/**
-	 * MvcCore - version:
-	 * Comparison by PHP function `version_compare();`.
-	 * @see http://php.net/manual/en/function.version-compare.php
-	 */
-	const VERSION = '5.0.0-alpha';
-
+abstract class Image implements \MvcCore\Ext\Tools\Images\IImage {
+	
 	/**
 	 * @var int
 	 */
@@ -95,27 +88,49 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	}
 
 	/**
+	 * Get full directory path for temporary images computation.
+	 * If no temporary path configured, there is used default
+	 * system temporary directory from `\MvcCore\Tool::GetSystemTmpDir();`.
+	 * @return string
+	 */
+	public static function GetTmpDirPath () {
+		if (static::$tmpDir === NULL)
+			static::SetTmpDirPath(
+				\MvcCore\Tool::GetSystemTmpDir()
+			);
+		return static::$tmpDir;
+	}
+
+	/**
 	 * Set custom full directory path for computation temporary images.
-	 * If no temporary path configured, there is automatically chosen temporary
-	 * path by `ini_get('TMP')` or by `ini_get('TEMP')`;
 	 * @param string $fullPath
 	 */
 	public static function SetTmpDirPath ($fullPath) {
-		self::$tmpDir = rtrim(str_replace('\\', '/', $fullPath), '/');
-		if (!is_dir(static::$tmpDir)) {
-			if (!mkdir(static::$tmpDir))
+		return static::$tmpDir = static::checkTmpDirPath($fullPath);
+	}
+
+	/**
+	 * Check given full path for existence and images reading/writing.
+	 * @param string $fullPath
+	 * @throws \RuntimeException
+	 * @return string
+	 */
+	protected static function checkTmpDirPath ($fullPath) {
+		if (!is_dir($fullPath)) {
+			if (!mkdir($fullPath))
 				throw new \RuntimeException(
 					'['.get_class()."] It was not possible to create temporary"
-					." directory for computed images: `".static::$tmpDir."`."
+					." directory for computed images: `{$fullPath}`."
 				);
-			if (!is_writable(static::$tmpDir))
-				if (!chmod(static::$tmpDir, 0777))
+			if (!is_writable($fullPath))
+				if (!chmod($fullPath, 0666))
 					throw new \RuntimeException(
 						'['.get_class()."] It was not possible to set temporary"
-						." directory for computed images: `".static::$tmpDir."`"
-						." to writeable mode 0777."
+						." directory for computed images: `{$fullPath}`"
+						." to writeable mode 0666."
 					);
 		}
+		return $fullPath;
 	}
 
 	/**
@@ -511,19 +526,10 @@ abstract class Image implements \MvcCore\Ext\Tools\Images\IImage
 	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
 	 */
 	protected function reinitializeImage() {
-		$tmpFile = self::$tmpDir . "/MvcCore_Ext_Tools_Images_TMP_" . uniqid();
+		$tmpFile = static::GetTmpDirPath() . '/' . static::TMP_IMAGE_BASE_NAME . '_' . uniqid();
 		$this->tmpFiles[] = $tmpFile;
 		$this->Save($tmpFile);
 		$this->destroy();
 		return $this->Load($tmpFile);
 	}
 }
-
-// set up temporary directories by system settings.
-Image::SetTmpDirPath(
-	isset($_SERVER['TMP'])
-		? $_SERVER['TMP']
-		: (isset($_SERVER['TEMP'])
-			? $_SERVER['TEMP']
-			: __DIR__)
-);
