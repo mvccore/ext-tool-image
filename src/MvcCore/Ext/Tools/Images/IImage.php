@@ -7,8 +7,8 @@
  * For the full copyright and license information, please view
  * the LICENSE.md file that are distributed with this source code.
  *
- * @copyright	Copyright (c) 2016 Tom Flídr (https://github.com/mvccore/mvccore)
- * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
+ * @copyright	Copyright (c) 2016 Tom Flidr (https://github.com/mvccore)
+ * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENCE.md
  */
 
 namespace MvcCore\Ext\Tools\Images;
@@ -20,7 +20,7 @@ interface IImage {
 	 * Comparison by PHP function `version_compare();`.
 	 * @see http://php.net/manual/en/function.version-compare.php
 	 */
-	const VERSION = '5.0.0-alpha';
+	const VERSION = '5.0.0';
 
 	/**
 	 * Base temporary image name in temporary directory.
@@ -34,7 +34,7 @@ interface IImage {
 	 * If there is no `Imagick` and no `GD` extension loaded, new `\RuntimeException` exception is thrown.
 	 * @param  int|\MvcCore\Ext\Tools\Images\IAdapter $preferredAdapter optional
 	 * @throws \RuntimeException
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public static function CreateInstance ($preferredAdapter = \MvcCore\Ext\Tools\Images\IAdapter::NONE);
 
@@ -73,14 +73,14 @@ interface IImage {
 	/**
 	 * Scale source image by width with maintaining the aspect ratio.
 	 * @param int $width Pixel width.
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function ResizeByWidth ($width);
 
 	/**
 	 * Scale source image by height with maintaining the aspect ratio.
 	 * @param int $height Pixel height.
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function ResizeByHeight ($height);
 
@@ -92,7 +92,7 @@ interface IImage {
 	 * @param int $resizedImgTotalPixelsCount Pixels count, computed by target width × height,
 	 *                                        so if you want all images with approximately the same
 	 *                                        size around 100 × 100 pixels, value will be 100 × 100 = 10000.
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function ResizeByPixelsCount ($resizedImgTotalPixelsCount);
 
@@ -101,7 +101,7 @@ interface IImage {
 	 * or `$height` params with maintaining the aspect ratio.
 	 * @param int $width Pixel width.
 	 * @param int $height Pixel height.
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function Contain ($width, $height);
 
@@ -122,7 +122,7 @@ interface IImage {
 	 * @param int $height Pixel height.
 	 * @param int|\MvcCore\Ext\Tools\Images\IOrientation $orientation Possible orientation values are integers by `\MvcCore\Ext\Tools\Images\IOrientation` interface constants.
 	 * @throws \InvalidArgumentException
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function Cover ($width, $height, $orientation = \MvcCore\Ext\Tools\Images\IOrientation::MIDDLE_CENTER);
 
@@ -132,7 +132,7 @@ interface IImage {
 	 * @param int $yPercentage Percentage value to crop from top.
 	 * @param int $widthPercentage Percentage value to crop from right.
 	 * @param int $heightPercentage Percentage value to crop from bottom.
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function CropPercent ($xPercentage, $yPercentage, $widthPercentage, $heightPercentage);
 
@@ -151,7 +151,7 @@ interface IImage {
 	 * @param string $fullPath
 	 * @param string|\MvcCore\Ext\Tools\Images\IFormat $format `png` by default.
 	 * @param int $quality `NULL` by default - no quality settings will be used.
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function Save ($fullPath, $format = \MvcCore\Ext\Tools\Images\IFormat::PNG, $quality = NULL);
 
@@ -160,7 +160,7 @@ interface IImage {
 	 * @abstract
 	 * @param int $width Pixel width.
 	 * @param int $height Pixel height.
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function Resize ($width, $height);
 
@@ -171,7 +171,7 @@ interface IImage {
 	 * @param int $y Pixel size to crop from top.
 	 * @param int $width Pixel size to crop from right.
 	 * @param int $height Pixel size to crop from bottom.
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function Crop ($x, $y, $width, $height);
 
@@ -183,7 +183,7 @@ interface IImage {
 	 * @abstract
 	 * @param int $width Pixel width.
 	 * @param int $height Pixel height.
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function Frame ($width, $height);
 
@@ -191,7 +191,7 @@ interface IImage {
 	 * Set background color for prepared image.
 	 * @abstract
 	 * @param string $hexColor Color in hexadecimal format with or without leading hash.
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function SetBackgroundColor ($hexColor);
 
@@ -202,7 +202,7 @@ interface IImage {
 	 * @param int   $amount    Typically: 50 - 200, min. 0, max. 500.
 	 * @param float $radius    Typically: 0.5 - 1, min. 0, max. 50.
 	 * @param int   $threshold Typically: 0 - 5, min. 0, max. 255.
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function UnsharpMask ($amount, $radius, $threshold);
 
@@ -214,14 +214,14 @@ interface IImage {
 	 * @abstract
 	 * @param string $maskImgFullPath
 	 * @throws \InvalidArgumentException
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function ApplyMask ($maskImgFullPath);
 
 	/**
 	 * Convert whole image to grayscale.
 	 * @abstract
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function Grayscale ();
 
@@ -232,7 +232,7 @@ interface IImage {
 	 * a good starting point for a reasonable tone.
 	 * @abstract
 	 * @param float $threshold
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function Sepia ($threshold = 80);
 
@@ -242,7 +242,7 @@ interface IImage {
 	 * @abstract
 	 * @param float $x X-rounding.
 	 * @param float $y Y-rounding.
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function RoundCorners ($x, $y);
 
@@ -251,7 +251,7 @@ interface IImage {
 	 * @abstract
 	 * @param float $angle
 	 * @param string $hexBgColor Color in hexadecimal format with or without leading hash. Transparent by default.
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function Rotate ($angle, $hexBgColor = 'transparent');
 
@@ -262,7 +262,7 @@ interface IImage {
 	 * @abstract
 	 * @param string $bgImgFullPath
 	 * @throws \InvalidArgumentException
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function SetBackgroundImage ($image);
 
@@ -285,7 +285,7 @@ interface IImage {
 	 * @param int $alpha
 	 * @param int|\MvcCore\Ext\Tools\Images\IComposite $composite
 	 * @throws \InvalidArgumentException
-	 * @return \MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function AddOverlay (
 		$overlayImgFullPath, $x = 0, $y = 0, $alpha = NULL,

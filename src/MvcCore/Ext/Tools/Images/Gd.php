@@ -7,14 +7,14 @@
  * For the full copyright and license information, please view
  * the LICENSE.md file that are distributed with this source code.
  *
- * @copyright	Copyright (c) 2016 Tom Flídr (https://github.com/mvccore/mvccore)
- * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
+ * @copyright	Copyright (c) 2016 Tom Flidr (https://github.com/mvccore)
+ * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENCE.md
  */
 
 namespace MvcCore\Ext\Tools\Images;
 
-class Gd extends \MvcCore\Ext\Tools\Image
-{
+class Gd extends \MvcCore\Ext\Tools\Image {
+
 	/**
 	 * @var resource
 	 */
@@ -44,7 +44,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @param string $fullPath
 	 * @param string|\MvcCore\Ext\Tools\Images\IFormat $format `png` by default.
 	 * @param int $quality `NULL` by default - no quality settings will be used.
-	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function Save ($fullPath, $format = \MvcCore\Ext\Tools\Images\IFormat::PNG, $quality = NULL) {
 		$format = strtolower($format);
@@ -74,7 +74,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * Resize image to desired with and height without maintaining the aspect ratio.
 	 * @param int $width Pixel width.
 	 * @param int $height Pixel height.
-	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function Resize ($width, $height) {
 		$newImg = $this->CreateEmptyImageResource($width, $height);
@@ -97,7 +97,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @param int $y Pixel size to crop from top.
 	 * @param int $width Pixel size to crop from right.
 	 * @param int $height Pixel size to crop from bottom.
-	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function Crop ($x, $y, $width, $height) {
 		$x = min($this->GetWidth(), max(0, $x));
@@ -120,7 +120,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * background color.
 	 * @param int $width Pixel width.
 	 * @param int $height Pixel height.
-	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function Frame ($width, $height) {
 		$this->Contain($width, $height);
@@ -142,7 +142,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	/**
 	 * Set background color for prepared image.
 	 * @param string $hexColor Color in hexadecimal format with or without leading hash.
-	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function SetBackgroundColor ($hexColor) {
 		list($r, $g, $b) = static::HexColor2RgbArrayColor($hexColor);
@@ -170,7 +170,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @param int   $amount    Typically: 50 - 200, min. 0, max. 500.
 	 * @param float $radius    Typically: 0.5 - 1, min. 0, max. 50.
 	 * @param int   $threshold Typically: 0 - 5, min. 0, max. 255.
-	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function UnsharpMask ($amount, $radius, $threshold) {
 		\MvcCore\Ext\Tools\Images\Gds\UnsharpMask::Process(
@@ -187,7 +187,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * This method is very time consuming!
 	 * @param string $maskImgFullPath
 	 * @throws \InvalidArgumentException
-	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function ApplyMask ($maskImgFullPath) {
 		if (is_file($maskImgFullPath)) {
@@ -214,7 +214,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 
 	/**
 	 * Convert whole image to grayscale.
-	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function Grayscale () {
 		imagefilter($this->resource, IMG_FILTER_GRAYSCALE);
@@ -228,7 +228,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * and is a measure of the extent of the sepia toning. A threshold of 80 is
 	 * a good starting point for a reasonable tone.
 	 * @param float $threshold
-	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function Sepia ($threshold = 80) {
 		$ratio = $threshold / 100.0;
@@ -245,7 +245,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * This method is very time consuming!
 	 * @param float $x X-rounding.
 	 * @param float $y Y-rounding.
-	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function RoundCorners ($x, $y) {
 		\MvcCore\Ext\Tools\Images\Gds\RoundCorners::Process($this->resource, $x, $y);
@@ -256,7 +256,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * Rotate image with optional background color, transparent by default.
 	 * @param float $angle
 	 * @param string $hexBgColor Color in hexadecimal format with or without leading hash. Transparent by default.
-	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function Rotate ($angle, $hexBgColor = 'transparent') {
 		if ($hexBgColor == 'transparent') {
@@ -288,7 +288,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * sizes as current image instance.
 	 * @param string $bgImgFullPath
 	 * @throws \InvalidArgumentException
-	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function SetBackgroundImage ($bgImgFullPath) {
 		if (is_file($bgImgFullPath)) {
@@ -348,7 +348,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 	 * @param int $alpha
 	 * @param int|\MvcCore\Ext\Tools\Images\IComposite $composite
 	 * @throws \InvalidArgumentException
-	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	public function AddOverlay (
 		$overlayImgFullPath, $x = 0, $y = 0, $alpha = NULL,
@@ -384,7 +384,7 @@ class Gd extends \MvcCore\Ext\Tools\Image
 
 	/**
 	 * Destroy current image instance resource in RAM.
-	 * @return \MvcCore\Ext\Tools\Image|\MvcCore\Ext\Tools\Images\IImage
+	 * @return \MvcCore\Ext\Tools\Image
 	 */
 	protected function destroy() {
 		imagedestroy($this->resource);
