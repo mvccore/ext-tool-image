@@ -37,16 +37,20 @@ class Imagick extends \MvcCore\Ext\Tools\Image {
 			unset($this->resource);
 			$this->resource = NULL;
 		}
+		$errorMsgBase = "Image `{$imgFullPath}` was not possible to load by `\Imagick::readImage();`. ";
 		try {
 			$this->resource = new \Imagick($imgFullPath);
 			if (!$this->resource->readImage($imgFullPath)) {
 				return $result;
 			}
 			$this->imgFullPath = $imgFullPath;
-		} catch (\Exception $e) {
+		} catch (\Exception $e) { // backward compatibility
 			throw new \RuntimeException(
-				"Image `$imgFullPath` was not possible to load by `\Imagick::readImage();`. "
-				.$e->getMessage() ,$e->getCode()
+				$errorMsgBase . $e->getMessage() ,$e->getCode()
+			);
+		} catch (\Throwable $e) {
+			throw new \RuntimeException(
+				$errorMsgBase . $e->getMessage() ,$e->getCode()
 			);
 		}
 		// set dimensions
@@ -315,7 +319,8 @@ class Imagick extends \MvcCore\Ext\Tools\Image {
 			if (in_array($type, $vectorTypes)) {
 				$result = TRUE;
 			}
-		} catch (\Exception $e) {
+		} catch (\Exception $e) { // backward compatibility
+		} catch (\Throwable $e) {
 		}
 		return $result;
 	}
