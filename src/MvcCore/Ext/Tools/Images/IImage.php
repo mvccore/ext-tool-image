@@ -16,16 +16,9 @@ namespace MvcCore\Ext\Tools\Images;
 interface IImage {
 
 	/**
-	 * MvcCore - version:
-	 * Comparison by PHP function `version_compare();`.
-	 * @see http://php.net/manual/en/function.version-compare.php
-	 */
-	const VERSION = '5.0.0';
-
-	/**
 	 * Base temporary image name in temporary directory.
 	 */
-	const TMP_IMAGE_BASE_NAME = 'MvcCore_Ext_Tools_Images_TMP';
+	const TMP_IMAGE_BASE_NAME = 'MvcCoreExtToolsImagesTmp';
 
 	/**
 	 * Returns every time new (no singleton) `\MvcCore\Ext\Tools\Image` instance implementation.

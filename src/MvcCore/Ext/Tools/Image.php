@@ -16,7 +16,7 @@ namespace MvcCore\Ext\Tools;
 abstract class Image implements \MvcCore\Ext\Tools\Images\IImage {
 	
 	/**
-	 * MvcCore Extension - Router Media - version:
+	 * MvcCore Extension - Tool - Image - version:
 	 * Comparison by PHP function version_compare();
 	 * @see http://php.net/manual/en/function.version-compare.php
 	 */
