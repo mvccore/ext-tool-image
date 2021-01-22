@@ -328,14 +328,10 @@ class Gd extends \MvcCore\Ext\Tools\Image {
 
 	/**
 	 * Return always `FALSE`, because `GD` graphic library doesn't
-	 * support any vector images processing. There will be triggered `E_USER_NOTICE`.
+	 * support any vector images processing.
 	 * @return bool
 	 */
 	public function IsVectorGraphic () {
-		trigger_error(
-			"GD graphic library doesn't support any vector images processing. [\\".get_class()."::".__METHOD__."()]",
-			E_USER_NOTICE
-		);
 		return FALSE;
 	}
 

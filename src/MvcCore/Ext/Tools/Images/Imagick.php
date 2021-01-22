@@ -309,16 +309,15 @@ class Imagick extends \MvcCore\Ext\Tools\Image {
 	public function IsVectorGraphic () {
 		$result = FALSE;
 		try {
-			$type = $this->resource->getimageformat();
+			$type = mb_strtoupper($this->resource->getimageformat());
 			$vectorTypes = [
 				"EPT","EPDF","EPI","EPS","EPS2",
 				"EPS3","EPSF","EPSI","EPT","PDF",
 				"PFA","PFB","PFM","PS","PS2",
 				"PS3","PSB","SVG","SVGZ"
 			];
-			if (in_array($type, $vectorTypes)) {
+			if (in_array($type, $vectorTypes, TRUE)) 
 				$result = TRUE;
-			}
 		} catch (\Exception $e) { // backward compatibility
 		} catch (\Throwable $e) {
 		}
