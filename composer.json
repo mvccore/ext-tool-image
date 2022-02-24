@@ -24,7 +24,8 @@
 		"homepage": "https://github.com/tomFlidr"
 	}],
 	"require": {
-		"php": ">=5.4.0"
+		"php": ">=5.4.0",
+		"mvccore/mvccore": "^5.0"
 	},
 	"autoload": {
 		"classmap": ["src/"]
