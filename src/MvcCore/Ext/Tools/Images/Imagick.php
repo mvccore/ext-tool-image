@@ -44,10 +44,6 @@ class Imagick extends \MvcCore\Ext\Tools\Image {
 				return $result;
 			}
 			$this->imgFullPath = $imgFullPath;
-		} catch (\Exception $e) { // backward compatibility
-			throw new \RuntimeException(
-				$errorMsgBase . $e->getMessage() ,$e->getCode()
-			);
 		} catch (\Throwable $e) {
 			throw new \RuntimeException(
 				$errorMsgBase . $e->getMessage() ,$e->getCode()
@@ -318,7 +314,6 @@ class Imagick extends \MvcCore\Ext\Tools\Image {
 			];
 			if (in_array($type, $vectorTypes, TRUE)) 
 				$result = TRUE;
-		} catch (\Exception $e) { // backward compatibility
 		} catch (\Throwable $e) {
 		}
 		return $result;
