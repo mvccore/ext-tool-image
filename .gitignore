@@ -52,8 +52,10 @@ Temporary Items
 .hgtags
 
 *.phpproj
+.vs
 *.phpproj.user
 
 *.phpproj
 *.phpproj.user
 composer.dev.json
+composer.dev.lock
